@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My E-Commerce Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🛒 My E-Commerce Store</h1>
+
+<div class="products">
+  <script>
+    const products = [
+      "Mobile Phone","Laptop","Headphones","Smart Watch","Shoes",
+      "Backpack","Camera","Keyboard","Mouse","Power Bank"
+    ];
+
+    products.forEach((p, i) => {
+      document.write(`
+        <div class="product">
+          <h3>${p}</h3>
+          <p>Price: Rs ${(i+1)*1000}</p>
+          <button onclick="addToCart('${p}')">Add to Cart</button>
+        </div>
+      `);
+    });
+  </script>
+</div>
+
+<h2>📦 Delivery Address</h2>
+<form onsubmit="placeOrder(event)">
+  <input type="text" placeholder="Full Name" required><br>
+  <input type="text" placeholder="Phone Number" required><br>
+  <textarea placeholder="Delivery Address" required></textarea><br>
+  <button type="submit">Place Order</button>
+</form>
+
+<h2>🧺 Cart</h2>
+<ul id="cart"></ul>
+
+<script src="script.js"></script>
+</body>
+</html>
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+.product {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+input, textarea {
+  width: 300px;
+  margin: 5px 0;
+}
+let cart = [];
+
+function addToCart(product) {
+  cart.push(product);
+  renderCart();
+}
+
+function renderCart() {
+  const cartList = document.getElementById("cart");
+  cartList.innerHTML = "";
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    cartList.appendChild(li);
+  });
+}
+
+function placeOrder(e) {
+  e.preventDefault();
+  alert("✅ Order Placed Successfully!");
+  cart = [];
+  renderCart();
+}
